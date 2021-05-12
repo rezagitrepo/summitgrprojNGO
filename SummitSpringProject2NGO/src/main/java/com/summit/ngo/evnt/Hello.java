@@ -4,6 +4,6 @@ public class Hello {
 
 	public void hello() {
 	System.out.println("Hello");
-	System.out.println("Hi Ken");
+	System.out.println("Hi Leza");
 	}
 }
