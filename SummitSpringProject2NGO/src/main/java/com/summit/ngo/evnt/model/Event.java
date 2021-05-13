@@ -28,7 +28,7 @@ public class Event {
 	Timestamp start_date;
 	Timestamp end_date;
 	@OneToMany(mappedBy = "evntmodel",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Set<Registration> registrationModel;
+	private Set<Registration> registration;
 	
 	public Event() {
 		super();
@@ -36,7 +36,7 @@ public class Event {
 	}
 
 	public Event(Integer id, String name, String description, String category, String location,
-			Timestamp start_date, Timestamp end_date, Set<Registration> registrationModel) {
+			Timestamp start_date, Timestamp end_date, Set<Registration> registration) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -45,7 +45,7 @@ public class Event {
 		this.location = location;
 		this.start_date = start_date;
 		this.end_date = end_date;
-		this.registrationModel = registrationModel;
+		this.registration = registration;
 	}
 
 	public Integer getId() {
@@ -105,18 +105,18 @@ public class Event {
 	}
 
 	public Set<Registration> getRegistrationModel() {
-		return registrationModel;
+		return registration;
 	}
 
-	public void setRegistrationModel(Set<Registration> registrationModel) {
-		this.registrationModel = registrationModel;
+	public void setRegistrationModel(Set<Registration> registration) {
+		this.registration = registration;
 	}
 
 	@Override
 	public String toString() {
 		return "EvntModel [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
 				+ ", location=" + location + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", registrationModel=" + registrationModel + "]";
+				+ ", registrationModel=" + registration + "]";
 	}
 
 	
