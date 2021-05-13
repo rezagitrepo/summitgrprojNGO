@@ -11,12 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.summit.ngo.registration.model.RegistrationModel;
+import com.summit.ngo.registration.model.Registration;
 
 
 @Entity
 @Table
-public class EvntModel {
+public class Event {
 	
 	@Id
 	@GeneratedValue
@@ -28,15 +28,15 @@ public class EvntModel {
 	Timestamp start_date;
 	Timestamp end_date;
 	@OneToMany(mappedBy = "evntmodel",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Set<RegistrationModel> registrationModel;
+	private Set<Registration> registrationModel;
 	
-	public EvntModel() {
+	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EvntModel(Integer id, String name, String description, String category, String location,
-			Timestamp start_date, Timestamp end_date, Set<RegistrationModel> registrationModel) {
+	public Event(Integer id, String name, String description, String category, String location,
+			Timestamp start_date, Timestamp end_date, Set<Registration> registrationModel) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -104,11 +104,11 @@ public class EvntModel {
 		this.end_date = end_date;
 	}
 
-	public Set<RegistrationModel> getRegistrationModel() {
+	public Set<Registration> getRegistrationModel() {
 		return registrationModel;
 	}
 
-	public void setRegistrationModel(Set<RegistrationModel> registrationModel) {
+	public void setRegistrationModel(Set<Registration> registrationModel) {
 		this.registrationModel = registrationModel;
 	}
 

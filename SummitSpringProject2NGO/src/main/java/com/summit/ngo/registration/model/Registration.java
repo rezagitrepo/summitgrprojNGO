@@ -8,11 +8,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.summit.ngo.evnt.model.EvntModel;
+import com.summit.ngo.evnt.model.Event;
+import com.summit.ngo.usr.model.User;
 
 @Entity
 @Table
-public class RegistrationModel {
+public class Registration {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +31,13 @@ public class RegistrationModel {
 	private User user;
 	@ManyToOne
 	@JoinColumn(name="event_id")
-	private EvntModel evntModel;
-	public RegistrationModel() {
+	private Event evntModel;
+	public Registration() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RegistrationModel(Integer id, String eventName, String fistName, String lastName, String emailId,
-			String contact, String address, Integer adultQty, Integer childQty, User user, EvntModel evntModel) {
+	public Registration(Integer id, String eventName, String fistName, String lastName, String emailId,
+			String contact, String address, Integer adultQty, Integer childQty, User user, Event evntModel) {
 		super();
 		this.id = id;
 		this.eventName = eventName;
@@ -110,10 +111,10 @@ public class RegistrationModel {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public EvntModel getEvntModel() {
+	public Event getEvntModel() {
 		return evntModel;
 	}
-	public void setEvntModel(EvntModel evntModel) {
+	public void setEvntModel(Event evntModel) {
 		this.evntModel = evntModel;
 	}
 	@Override

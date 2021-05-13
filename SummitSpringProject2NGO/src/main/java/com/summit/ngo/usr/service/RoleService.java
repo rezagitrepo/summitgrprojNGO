@@ -1,4 +1,4 @@
-package com.summit.ngo.service;
+package com.summit.ngo.usr.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.summit.ngo.model.Role;
-import com.summit.ngo.repository.RoleRepository;
+import com.summit.ngo.usr.model.Role;
+import com.summit.ngo.usr.repository.RoleRepository;
 
 @Service
 public class RoleService {
