@@ -1,4 +1,4 @@
-package com.summit.ngomodel;
+package com.summit.ngo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

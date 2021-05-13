@@ -1,4 +1,4 @@
-package com.summit.ngomodel;
+package com.summit.ngo.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.summit.ngomodel.User;
+import com.summit.ngo.model.User;
 
 @Entity(name="role")
 public class Role {

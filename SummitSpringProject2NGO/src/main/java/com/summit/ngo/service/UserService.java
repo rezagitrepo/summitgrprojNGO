@@ -1,4 +1,4 @@
-package com.summit.ngoservice;
+package com.summit.ngo.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.summit.ngomodel.User;
-import com.summit.ngorepository.UserRepository;
+import com.summit.ngo.model.User;
+import com.summit.ngo.repository.UserRepository;
 
 @Service
 public class UserService {
