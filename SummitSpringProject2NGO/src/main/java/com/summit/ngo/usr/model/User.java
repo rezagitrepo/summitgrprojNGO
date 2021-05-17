@@ -1,13 +1,21 @@
 package com.summit.ngo.usr.model;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import com.sun.istack.NotNull;
+
+
+
 
 @Entity(name="user")
 public class User {
@@ -25,15 +33,29 @@ public class User {
 	@NotNull
 	private String password;
 	
-	@ManyToOne
-	@JoinColumn(name="role_id")
-	private Role role_id;
-	
-	public User(String first_name, String last_name, String email, String password) {
-		this.first_name=first_name;
-		this.last_name=last_name;
-		this.email=email;
-		this.password=password;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+	//private Role role;
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(int id, String first_name, String last_name, String email, String password, Role role) {
+		super();
+		this.id = id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
 	}
 
 	public int getId() {
@@ -76,16 +98,19 @@ public class User {
 		this.password = password;
 	}
 
-	public Role getRole_id() {
-		return role_id;
-	}
+	public Collection<Role> getRoles() {
+        return roles;
+    }
 
-	public void setRole_id(Role role_id) {
-		this.role_id = role_id;
-	}
-	
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
 	@Override
 	public String toString() {
-		return super.toString();
+		return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
+				+ ", password=" + password + ", roles=" + roles + "]";
 	}
+	
+	
 }

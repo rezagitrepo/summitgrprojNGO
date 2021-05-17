@@ -16,16 +16,28 @@ import com.summit.ngo.usr.model.User;
 public class Role {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="role_id")
+	//@Column(name="role_id")
 	private int id;
 	
-	@OneToMany(mappedBy="role_id")
-	private List<User> userList = new ArrayList<User>();
+//	@OneToMany(mappedBy="role_id")
+//	private List<User> userList = new ArrayList<User>();
 	
 	private String name;
 	private String role_type;
 	private String evnt_view;
 	private String evnt_mng;
+	
+	
+	
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Role(String name) {
+		this.name = name;
+	}
+	
 	
 	public Role(String name, String role_type, String evnt_view, String evnt_mng) {
 		this.name=name;
