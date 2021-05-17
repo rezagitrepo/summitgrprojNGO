@@ -1,22 +1,16 @@
 package com.summit.ngo.usr.controller;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.summit.ngo.usr.model.Role;
 import com.summit.ngo.usr.model.User;
 import com.summit.ngo.usr.repository.RoleRepository;
 import com.summit.ngo.usr.repository.UserRepository;
-import com.summit.ngo.usr.service.UserService;
 
 @Controller
 public class UserController {
@@ -30,8 +24,11 @@ public class UserController {
     private BCryptPasswordEncoder passwordEncoder;
 	 
 	@GetMapping("/")
-	public String root(@RequestParam("principal.username")String email) {
+	public String root() {
 	     
+		System.out.println("Here it is index controller");
+		
+		//@RequestParam("principal.username")String email
 //		 User user = userRepo.findByEmail(email);
 //	        String roleName = roleRepo.findRole(user.getId());
 //	        
@@ -75,26 +72,45 @@ public class UserController {
 	    
 
 	    
-	    @PostMapping("/hello")
-	    public String hello(Model model,@RequestParam("username")String email) {
-	        
-	    	model.addAttribute("msg","Hi."+ email+ "!");
-	    	//model.addAttribute("lists",lists);
-	    	System.out.println("hello Controller is Executed");
-	    	System.out.println("UserName: "+ email);
-		     
-	    	
-	        
-	        return "hello";
-	    }
+		@PostMapping("/hello")
+		public String hello(Model model, @RequestParam("username") String email, @RequestParam("password") String pass) {
+
+			model.addAttribute("msg", "Hi." + email + "!");
+			// model.addAttribute("lists",lists);
+			System.out.println("hello Controller is Executed");
+			System.out.println("UserName(webpage): " + email);
+
+			User user = userRepo.findByEmail(email);
+			String roleName = roleRepo.findRole(user.getId());
+			
+			System.out.println("this is from database role name:"+roleName);
+			
+			Boolean password = passwordEncoder.matches(pass, user.getPassword());
+
+			System.out.println("Value of Boolean Password: "+password);
+			
+			if (roleName.equals("ROLE_ADMIN") && password) {
+				System.out.println("I am Admin User");
+				return "hello";
+			} else {
+				if (roleName.equals("ROLE_USER") && password) {
+					System.out.println("I am General User");
+					return "redirect:/hello1";
+				} else
+					return "login";
+
+			}
+
+			// return "hello";
+		}
 	    
-	    @PostMapping("/hello1")
-	    public String hello1(Model model,@RequestParam("username")String id) {
-	        
-	    	model.addAttribute("msg","Hi."+ id+ "!");
+	    @GetMapping("/hello1")
+	    public String hello1(Model model) {
+	        //@RequestParam("username")String id
+	    	model.addAttribute("msg","Hi.");
 	    	//model.addAttribute("lists",lists);
 	    	System.out.println("Hello is Executed");
-	    	System.out.println("ID:"+id);
+	    	//System.out.println("ID:"+id);
 	    	return "hello1";
 	    }
 	    
