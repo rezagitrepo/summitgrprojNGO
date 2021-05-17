@@ -8,11 +8,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.summit.ngo.evnt.model.EvntModel;
+import com.summit.ngo.evnt.model.Event;
+import com.summit.ngo.usr.model.User;
 
 @Entity
 @Table
-public class RegistrationModel {
+public class Registration {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,16 +31,16 @@ public class RegistrationModel {
 	private User user;
 	@ManyToOne
 	@JoinColumn(name="event_id")
-	private EvntModel evntModel;
-	public RegistrationModel() {
+	private Event event;
+	public Registration() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RegistrationModel(Integer id, String eventName, String fistName, String lastName, String emailId,
-			String contact, String address, Integer adultQty, Integer childQty, User user, EvntModel evntModel) {
+	public Registration(Integer id, String eventName, String fistName, String lastName, String emailId,
+			String contact, String address, Integer adultQty, Integer childQty, User user, Event event) {
 		super();
 		this.id = id;
-		this.eventName = eventName;
+		//this.eventName = eventName;
 		this.fistName = fistName;
 		this.lastName = lastName;
 		this.emailId = emailId;
@@ -48,7 +49,7 @@ public class RegistrationModel {
 		this.adultQty = adultQty;
 		this.childQty = childQty;
 		this.user = user;
-		this.evntModel = evntModel;
+		this.event = event;
 	}
 	public Integer getId() {
 		return id;
@@ -56,12 +57,12 @@ public class RegistrationModel {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getEventName() {
-		return eventName;
-	}
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
-	}
+//	public String getEventName() {
+//		return eventName;
+//	}
+//	public void setEventName(String eventName) {
+//		this.eventName = eventName;
+//	}
 	public String getFistName() {
 		return fistName;
 	}
@@ -110,17 +111,17 @@ public class RegistrationModel {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public EvntModel getEvntModel() {
-		return evntModel;
+	public Event getEvent() {
+		return event;
 	}
-	public void setEvntModel(EvntModel evntModel) {
-		this.evntModel = evntModel;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 	@Override
 	public String toString() {
-		return "RegistrationModel [id=" + id + ", eventName=" + eventName + ", fistName=" + fistName + ", lastName="
+		return "RegistrationModel [id=" + id + ", fistName=" + fistName + ", lastName="
 				+ lastName + ", emailId=" + emailId + ", contact=" + contact + ", address=" + address + ", adultQty="
-				+ adultQty + ", childQty=" + childQty + ", evntModel=" + evntModel + "]";
+				+ adultQty + ", childQty=" + childQty + ", event=" + event + "]";
 	}
 	
 	

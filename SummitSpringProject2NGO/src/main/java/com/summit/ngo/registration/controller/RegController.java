@@ -1,8 +1,8 @@
-package com.summit.ngo.controller;
+package com.summit.ngo.registration.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+public class RegController {
 
 }

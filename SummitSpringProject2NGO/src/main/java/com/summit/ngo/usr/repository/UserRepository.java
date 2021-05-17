@@ -1,11 +1,13 @@
-package com.summit.ngo.repository;
+package com.summit.ngo.usr.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.summit.ngo.model.User;
+import com.summit.ngo.usr.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 
+	User findByEmail(String email);
+	
 }

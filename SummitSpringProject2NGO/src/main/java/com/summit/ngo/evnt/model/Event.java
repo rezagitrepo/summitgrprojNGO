@@ -11,12 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.summit.ngo.registration.model.RegistrationModel;
+import com.summit.ngo.registration.model.Registration;
 
 
 @Entity
 @Table
-public class EvntModel {
+public class Event {
 	
 	@Id
 	@GeneratedValue
@@ -27,16 +27,16 @@ public class EvntModel {
 	String location;
 	Timestamp start_date;
 	Timestamp end_date;
-	@OneToMany(mappedBy = "evntmodel",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Set<RegistrationModel> registrationModel;
+	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Set<Registration> registration;
 	
-	public EvntModel() {
+	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EvntModel(Integer id, String name, String description, String category, String location,
-			Timestamp start_date, Timestamp end_date, Set<RegistrationModel> registrationModel) {
+	public Event(Integer id, String name, String description, String category, String location,
+			Timestamp start_date, Timestamp end_date, Set<Registration> registration) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -45,7 +45,7 @@ public class EvntModel {
 		this.location = location;
 		this.start_date = start_date;
 		this.end_date = end_date;
-		this.registrationModel = registrationModel;
+		this.registration = registration;
 	}
 
 	public Integer getId() {
@@ -104,19 +104,19 @@ public class EvntModel {
 		this.end_date = end_date;
 	}
 
-	public Set<RegistrationModel> getRegistrationModel() {
-		return registrationModel;
+	public Set<Registration> getRegistrationModel() {
+		return registration;
 	}
 
-	public void setRegistrationModel(Set<RegistrationModel> registrationModel) {
-		this.registrationModel = registrationModel;
+	public void setRegistrationModel(Set<Registration> registration) {
+		this.registration = registration;
 	}
 
 	@Override
 	public String toString() {
 		return "EvntModel [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
 				+ ", location=" + location + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", registrationModel=" + registrationModel + "]";
+				+ ", registrationModel=" + registration + "]";
 	}
 
 	
