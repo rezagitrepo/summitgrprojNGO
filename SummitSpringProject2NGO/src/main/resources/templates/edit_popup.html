@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>NGO edit user info</title>
+</head>
+<body>
+	<div align="center">
+		<h1>Edit user Info Page</h1>
+		<form action="#" th:action="@{/saveUser}" th:object="${user}"
+			method="post">
+			<table border="2">
+				<tr>
+					<td>first name: <input type="text" style="width: 232px" th:field="*{first_name}" placeholder="Enter a first name"/><br>
+					</td>
+				</tr>
+				<tr>
+					<td>last Name: <input type="text" style="width: 227px" th:field="*{last_name}" placeholder="Enter a last name"/><br>
+					</td>
+				</tr>
+				<tr>
+					<td>email: <input type="text" style="width: 220px" th:field="*{email}" placeholder="Enter an email address"/><br>
+					</td>
+				</tr>
+				<tr>
+					<td>role: <input type="text" style="width: 197px" placeholder="Enter a admin / user"/><br>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit">Edit</button>
+		</form>
+	</div>
+</body>
+</html>
