@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.summit.ngo.usr.dto.UsrRegistrationDto;
 import com.summit.ngo.usr.model.Role;
 import com.summit.ngo.usr.model.User;
+import com.summit.ngo.usr.repository.RoleRepository;
 import com.summit.ngo.usr.repository.UserRepository;
 
 
@@ -29,6 +30,8 @@ public class UserService implements UserDetailsInterface
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private RoleRepository roleRepo;
 	
 	public List<User> findAll(){
 		List<User> users = new ArrayList<User>();
@@ -58,9 +61,11 @@ public class UserService implements UserDetailsInterface
 		userContain.setFirst_name(user.getFirst_name());
         userContain.setLast_name(user.getLast_name());
         userContain.setEmail(user.getEmail());
-        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
+        //userContain.setPassword(passwordEncoder.encode(user.getPassword()));
+        userContain.setPassword(user.getPassword());
         //user.setPassword(userDto.getPassword());
-        userContain.setRoles(userContain.getRoles());
+        //roleRepo.updateRoleName(user.getEmail(), user.getId());
+        userContain.setRoles(user.getRoles());
         //user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 		//return userRepo.save(user);
 		return userRepo.save(userContain);

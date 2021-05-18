@@ -52,7 +52,13 @@ public class UserController {
 		if (logout != null)
 			model.addAttribute("msg", "You have been logged out successfully.");
 		System.out.println("LogIn page Executed");
+		
+//		String password = "123";
+//		String encPass = passwordEncoder.encode(password);
+//		System.out.println("Encoded Password="+encPass);
 		return "login";
+		
+		
 	}
 	
 //	@PostMapping("/checkUser")
@@ -135,6 +141,8 @@ public class UserController {
 		System.out.println("user"+user.getId());
 		//user.setId(userInDb.getId());
 		user.setPassword(userInDb.getPassword());
+		System.out.println("verify from DB"+userInDb.getPassword());
+		System.out.println("user b4 save:"+user.getPassword());
 		userService.saveUserServe(user);
 		model.addAttribute("user",user);
 		return "redirect:/user";
