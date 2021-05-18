@@ -52,16 +52,18 @@ public class UserService implements UserDetailsInterface
         return userRepo.findByEmail(email);
     }
 
-	public User save(UsrRegistrationDto userDto) { 
-		User user = new User();
-        user.setFirst_name(userDto.getFirstName());
-        user.setLast_name(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+	public User saveUserServe(User user) { 
+		User userContain = new User();
+        userContain.setId(user.getId());
+		userContain.setFirst_name(user.getFirst_name());
+        userContain.setLast_name(user.getLast_name());
+        userContain.setEmail(user.getEmail());
+        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
         //user.setPassword(userDto.getPassword());
-        user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
+        userContain.setRoles(userContain.getRoles());
+        //user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 		//return userRepo.save(user);
-		return userRepo.save(user);
+		return userRepo.save(userContain);
 	} 
 	
 	public void updateById(Long id, User user) { 
@@ -86,4 +88,10 @@ public class UserService implements UserDetailsInterface
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+
+	@Override
+	public User save(UsrRegistrationDto registration) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

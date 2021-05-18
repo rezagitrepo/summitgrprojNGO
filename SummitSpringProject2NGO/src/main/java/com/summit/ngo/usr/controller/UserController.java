@@ -1,5 +1,7 @@
 package com.summit.ngo.usr.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.summit.ngo.usr.dto.UsrRegistrationDto;
 import com.summit.ngo.usr.model.User;
 import com.summit.ngo.usr.repository.RoleRepository;
 import com.summit.ngo.usr.repository.UserRepository;
 import com.summit.ngo.usr.service.UserService;
 
-import antlr.collections.List;
+
 
 @Controller
 public class UserController {
@@ -35,7 +38,9 @@ public class UserController {
 	@GetMapping("/")
 	public String index() {
 		System.out.println("index executed");
-		return "/login";
+		//return "/login";
+		return "index";
+		//return "redirect:/checkUser";
 	}
 	
 	@GetMapping("/login")
@@ -47,33 +52,33 @@ public class UserController {
 		if (logout != null)
 			model.addAttribute("msg", "You have been logged out successfully.");
 		System.out.println("LogIn page Executed");
-		return "/login";
+		return "login";
 	}
 	
-	@PostMapping("/checkUser")
-	public String checkUser(Model model, @RequestParam("username") String email, @RequestParam("password") String pass) {
-
-		model.addAttribute("msg", "Hi." + email + "!");
-		System.out.println("checkUser is Executed");
-
-		User user = userService.findByEmail(email);
-		String roleName = roleRepo.findRole(user.getId());
-
-
-		Boolean password = passwordEncoder.matches(pass, user.getPassword());
-
-
-		if (roleName.equals("ROLE_ADMIN") && password) {
-			System.out.println("I am Admin User");
-			return "redirect:/user";
-		} else {
-			if (roleName.equals("ROLE_USER") && password) {
-				System.out.println("I am General User");
-				return "redirect:/view";
-			} else
-				return "/login";
-		}
-	}
+//	@PostMapping("/checkUser")
+//	public String checkUser(Model model, @RequestParam("username") String email, @RequestParam("password") String pass) {
+//
+//		model.addAttribute("msg", "Hi." + email + "!");
+//		System.out.println("checkUser is Executed");
+//
+//		User user = userService.findByEmail(email);
+//		String roleName = roleRepo.findRole(user.getId());
+//
+//
+//		Boolean password = passwordEncoder.matches(pass, user.getPassword());
+//
+//
+//		if (roleName.equals("ROLE_ADMIN") && password) {
+//			System.out.println("I am Admin User");
+//			return "redirect:/user";
+//		} else {
+//			if (roleName.equals("ROLE_USER") && password) {
+//				System.out.println("I am General User");
+//				return "redirect:/view";
+//			} else
+//				return "/login";
+//		}
+//	}
 	
 	@GetMapping("/generalUser")
 	public String generalUser(Model model) {
@@ -122,9 +127,15 @@ public class UserController {
 		return mav;
 	} 
 	
-	@PostMapping
-	public String saveUser(@Valid User user, Model model) {
-		userService.save(user);
+	@PostMapping("/saveUser")
+	public String saveUser(@Valid User user, Model model,@RequestParam("id") int id) {
+		User userInDb = userService.findById(id);
+		System.out.println("id of user:"+id);
+		System.out.println("userInDb:"+userInDb.getId());
+		System.out.println("user"+user.getId());
+		//user.setId(userInDb.getId());
+		user.setPassword(userInDb.getPassword());
+		userService.saveUserServe(user);
 		model.addAttribute("user",user);
 		return "redirect:/user";
 	}

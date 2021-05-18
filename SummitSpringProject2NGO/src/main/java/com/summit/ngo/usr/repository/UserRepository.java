@@ -1,12 +1,14 @@
 package com.summit.ngo.usr.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.summit.ngo.usr.model.User;
 
-import antlr.collections.List;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
