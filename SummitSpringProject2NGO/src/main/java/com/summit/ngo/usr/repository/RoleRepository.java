@@ -18,9 +18,14 @@ public interface RoleRepository extends JpaRepository<Role, Integer>{
 	@Query( value = "select r.name from Role r join users_roles ur on r.id=ur.role_id join user u on u.id=ur.user_id and u.id=:userId",nativeQuery = true)
 	public String findRole(@Param("userId") Integer userId);
 
-//	@Modifying
-//    @Transactional
-//    @Query("update Role r set r.name = ?1 where c.id = ?2")
-//    public void updateRoleName(String email,Integer id);
+//<<<<<<< HEAD
+////	@Modifying
+////    @Transactional
+////    @Query("update Role r set r.name = ?1 where c.id = ?2")
+////    public void updateRoleName(String email,Integer id);
+//=======
+//	@Query( value = "select r.name from Role r join users_roles ur on r.id=ur.role_id join user u on u.id=ur.user_id",nativeQuery = true)
+//	public List<String> findAllRole();
+//>>>>>>> branch 'master' of https://github.com/rezagitrepo/summitgrprojNGO.git
 	
 }

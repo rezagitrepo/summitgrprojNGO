@@ -40,7 +40,7 @@ public class Registration {
 			String contact, String address, Integer adultQty, Integer childQty, User user, Event event) {
 		super();
 		this.id = id;
-		//this.eventName = eventName;
+		this.eventName = eventName;
 		this.fistName = fistName;
 		this.lastName = lastName;
 		this.emailId = emailId;
@@ -57,12 +57,12 @@ public class Registration {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-//	public String getEventName() {
-//		return eventName;
-//	}
-//	public void setEventName(String eventName) {
-//		this.eventName = eventName;
-//	}
+	public String getEventName() {
+		return eventName;
+	}
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
 	public String getFistName() {
 		return fistName;
 	}

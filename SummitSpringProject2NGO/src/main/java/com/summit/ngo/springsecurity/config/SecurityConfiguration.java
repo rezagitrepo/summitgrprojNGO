@@ -46,11 +46,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	  							"**/**css**/**",
 	  							"/*img",
 	  							"/webjars/**").permitAll()
-	  						.antMatchers("/user").hasAnyRole("ADMIN")
-	  						.antMatchers("/view").hasAnyRole("USER")
-	  						.antMatchers("/edit_popup/**").hasAnyRole("ADMIN")
-	  						.antMatchers("/delete_popup/**").hasAnyRole("ADMIN")
-	  						.antMatchers("/newUser_popup/**").hasAnyRole("ADMIN")
+	  						.antMatchers("/user").hasAnyRole("ADMIN","USER")
+	  						.antMatchers("/view").hasAnyRole("USER","USER")
+	  						.antMatchers("/edit_popup/**").hasAnyRole("ADMIN","USER")
+	  						.antMatchers("/delete_popup/**").hasAnyRole("ADMIN","USER")
+	  						.antMatchers("/newUser_popup/**").hasAnyRole("ADMIN","USER")
+	  						.antMatchers("/new_user").hasAnyRole("ADMIN","USER")
+	  						.antMatchers("/register_event").hasAnyRole("USER")
 	  						.anyRequest().authenticated()
 	  				.and()
 	  					.formLogin()

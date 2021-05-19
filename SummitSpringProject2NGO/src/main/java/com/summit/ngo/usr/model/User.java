@@ -15,42 +15,55 @@ import javax.persistence.ManyToMany;
 
 import com.sun.istack.NotNull;
 
-@Entity(name = "user")
+
+
+
+@Entity(name="user")
 public class User {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
+	
 	private String first_name;
-
+	
 	private String last_name;
-
+	
 	private String email;
-
+	
 	@NotNull
 	private String password;
-
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.PERSIST })
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	private Set<Role> roles;
-	// private Collection<Role> roles;
-	// private Role role;
+	
+	private String role;
+//	@ManyToMany(fetch = FetchType.LAZY, cascade =
+//        {
+//                CascadeType.DETACH,
+//                CascadeType.MERGE,
+//                CascadeType.REFRESH,
+//                CascadeType.PERSIST
+//        })
+//    @JoinTable(
+//            name = "users_roles",
+//            joinColumns = @JoinColumn(
+//                    name = "user_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(
+//                    name = "role_id", referencedColumnName = "id"))
+//    private Set<Role> roles;
+//	//private Role role;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String first_name, String last_name, String email, String password, Role role) {
+	public User(int id, String first_name, String last_name, String email, String password, String role) {
 		super();
 		this.id = id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.email = email;
 		this.password = password;
-		this.roles = roles;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -93,18 +106,19 @@ public class User {
 		this.password = password;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
+	public String getRole() {
+        return role;
+    }
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
-				+ ", password=" + password + ", roles=" + roles + "]";
+				+ ", password=" + password + ", role=" + role + "]";
 	}
-
+	
+	
 }

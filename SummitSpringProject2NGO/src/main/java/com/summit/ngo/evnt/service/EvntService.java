@@ -39,5 +39,15 @@ public class EvntService {
 		
 		evntRepo.save(event); 
 	}
-
+	
+	public Event saveEvent(Event event) { 
+		Event evntContain = new Event();
+		evntContain.setId(event.getId());
+		evntContain.setName(event.getName());
+		evntContain.setCategory(event.getCategory());
+		evntContain.setLocation(event.getLocation());
+		evntContain.setStart_date(event.getStart_date());
+		evntContain.setEnd_date(event.getEnd_date());
+		return evntRepo.save(evntContain);
+	} 
 }
