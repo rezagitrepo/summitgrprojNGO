@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	  						.antMatchers("/view").hasAnyRole("USER")
 	  						.antMatchers("/edit_popup/**").hasAnyRole("ADMIN")
 	  						.antMatchers("/delete_popup/**").hasAnyRole("ADMIN")
-	  						.antMatchers("/new").hasAnyRole("ADMIN")
+	  						.antMatchers("/newUser_popup/**").hasAnyRole("ADMIN")
 	  						.anyRequest().authenticated()
 	  				.and()
 	  					.formLogin()

@@ -64,8 +64,11 @@ public class UserService implements UserDetailsInterface
         //userContain.setPassword(passwordEncoder.encode(user.getPassword()));
         userContain.setPassword(user.getPassword());
         //user.setPassword(userDto.getPassword());
-        //roleRepo.updateRoleName(user.getEmail(), user.getId());
         userContain.setRoles(user.getRoles());
+        //userContain.getRoles().add(user.getRoles());
+        //user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        //roleRepo.updateRoleName(user.getEmail(), user.getId());
+        //--------userContain.setRoles(user.getRoles());
         //user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 		//return userRepo.save(user);
 		return userRepo.save(userContain);
@@ -97,6 +100,7 @@ public class UserService implements UserDetailsInterface
 	@Override
 	public User save(UsrRegistrationDto registration) {
 		// TODO Auto-generated method stub
+		//userRepo.save(registration);
 		return null;
 	}
 }

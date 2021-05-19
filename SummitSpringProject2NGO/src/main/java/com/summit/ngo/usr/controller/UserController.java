@@ -22,6 +22,8 @@ import com.summit.ngo.usr.service.UserService;
 
 
 
+
+
 @Controller
 public class UserController {
 
@@ -94,7 +96,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/user")
-	public ModelAndView user(Model model) {
+	public ModelAndView user(Model model) {	
+				
 		System.out.println("index executed");
 		List<User> lists = userRepo.userAndRole();
 		String first_name = "";
@@ -156,9 +159,19 @@ public class UserController {
 	}
 	
 	@GetMapping("/new")
-	public String newUser() {
-		return "/newUser_popup";
+	public String newUserEntry(Model model) {
+		//model.addAttribute("user",user);
+		return "redirect:/newUser_popup";
 	}
+	
+	@GetMapping("/newUser_popup")
+	public ModelAndView newUser() {
+		ModelAndView mav = new ModelAndView("newUser_popup");
+		User user = new User();
+		mav.addObject("user",user);
+		return mav;
+	}
+	
 	
 	@GetMapping("/event")
 	public ModelAndView event(Model model) {

@@ -68,8 +68,16 @@
 	<nav>
 		<div align="center" class="nav-container">
 			<div align="left" class="navTitle">NGO</div>
-			<div align="right" class="navUser">John Smith(admin)</div>
+			<div align="right" class="navUser"><span sec:authentication="principal.username"></div>
 		</div>
+
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<h3>ADMIN</h3>
+		</div>
+		<div sec:authorize="hasRole('ROLE_USER')">
+			<h3>USER</h3>
+		</div>
+
 	</nav>
 	<div class="sidebar">
 		<a href="user">User Management</a>

@@ -27,7 +27,7 @@ public class Event {
 	String location;
 	Timestamp start_date;
 	Timestamp end_date;
-	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Registration> registration;
 	
 	public Event() {

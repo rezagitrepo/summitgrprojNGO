@@ -69,7 +69,25 @@
 	<nav>
 		<div align="center" class="nav-container">
 			<div align="left" class="navTitle">NGO</div>
+
+			<div align="right" class="navUser"><span sec:authentication="principal.username"></div>
+			<!--
 			<div align="right" class="navUser">ken lee(admin)</div>
+			<p>
+			Welcome <span sec:authentication="principal.username">User</span>
+
+		</p>
+		-->
+
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				<h3>ADMIN</h3>
+			</div>
+			<div sec:authorize="hasRole('ROLE_USER')">
+				<h3>USER</h3>
+			</div>
+
+
+
 		</div>
 	</nav>
 	<div class="sidebar">
@@ -81,7 +99,7 @@
 		<div class="top">
 			<div class="section-title">User Management</div>
 		</div>
-		<div align="right"><a href="@{/new}">Add New</a></div>
+		<div align="right"><a href="/new">Add New</a></div>
 		<!-- th:onclick="window.open(this.href,'_blank','width=800,height=800,toolbars=no,scrollbars=yes'); return false;"  -->
 		<table align="center" class="table" border="6">
 			<tbody>
