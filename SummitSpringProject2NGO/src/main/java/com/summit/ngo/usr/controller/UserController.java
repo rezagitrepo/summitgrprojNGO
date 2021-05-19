@@ -1,5 +1,7 @@
 package com.summit.ngo.usr.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ import com.summit.ngo.usr.repository.RoleRepository;
 import com.summit.ngo.usr.repository.UserRepository;
 import com.summit.ngo.usr.service.UserService;
 
-import antlr.collections.List;
 
 
 
