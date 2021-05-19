@@ -1,91 +1,108 @@
 <!DOCTYPE html>
-<html xmlns:th="http:/www.thymeleaf.org">
-
+<html xmlns:th="http:/www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>index page</title>
 	<style type="text/css">
-		.section-title {
+		.section-title{
 			color: #010110;
 		}
-
-		.nav-container {
+		.nav-container{
 			background-color: #9e9e9e;
 			font-size: 25px;
 			padding: 0px 10px;
 			padding-top: 20px;
 			padding-bottom: 20px;
-		}
-
+		} 
 		.sidebar {
-			height: 100%;
-			width: 200px;
-			position: fixed;
-			z-index: 1;
-			top: 1;
-			left: 0;
-			background-color: #eee;
-			overflow-x: hidden;
-			padding-top: 20px;
+		  	height: 100%;
+		  	width: 200px;
+		  	position: fixed;
+		  	z-index: 1;
+		  	top: 1;
+		  	left: 0;
+		  	background-color: #eee;
+		  	overflow-x: hidden;
+		  	padding-top: 20px;
 		}
-
 		body {
-			font-family: "Lato", sans-serif;
+		  	font-family: "Lato", sans-serif;
 		}
-
+		
 		.sidebar a {
-			padding: 8px 8px 6px 16px;
-			text-decoration: none;
-			font-size: 20px;
-			color: #010110;
-			display: block;
+		  	padding: 8px 8px 6px 16px;
+		  	text-decoration: none;
+		  	font-size: 20px;
+		  	color: #010110;
+		  	display: block;
 		}
-
 		.sidebar a:hover {
-			color: #064579;
+		  	color: #064579;
 		}
-
 		.main {
-			margin-left: 160px;
-			/* Same as the width of the sidenav */
-			font-size: 26px;
-			/* Increased text to enable scrolling */
-			padding: 0px 10px;
+			margin-left: 160px; /* Same as the width of the sidenav */
+			font-size: 26px; /* Increased text to enable scrolling */
+		  	padding: 0px 10px;
 		}
-
-		.top {
+		.top{
 			margin-left: 20px;
 			font-size: 30px;
 			padding: 0px 20px;
 			background-color: #eee;
-
+			
 		}
 	</style>
 </head>
-
-<body>
-	<nav>
-		<div align="center" class="nav-container">
-			<div align="left" class="navTitle">NGO</div>
-			<div align="right" class="navUser">John Smith(admin)</div>
+	<body>
+		<nav>
+			<div align="center" class="nav-container">
+				<div align="left" class="navTitle">NGO</div>
+	            <div align="right" class="navUser">
+		            <span sec:authentication="principal.username"></span>
+					<span sec:authorize="hasRole('ROLE_ADMIN')">(Admin)</span>
+					<span sec:authorize="hasRole('ROLE_USER')">(User)</span>
+				</div>
+			</div>
+		</nav>
+		<div class="sidebar" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a th:href="@{/user}">User Management</a>
+			<a th:href="@{/event}">Event Management</a>
+			<a th:href="@{/view}" style=background-color:grey>User View</a>
 		</div>
-	</nav>
-	<div class="sidebar">
-		<a href="user">User Management</a>
-		<a href="event">Event Management</a>
-		<a href="view" style=background-color:grey>User View</a>
-	</div>
-	<div class="main">
-		<div class="top">
-			<div class="section-title"> User View</div>
-		</div>
-	</div>
-	<div id="navbar" class="collapse navbar-collapse">
-		<ul class="nav navbar-nav">
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-		</ul>
-	</div>
-</body>
-
+		<div class="main">
+	        <div class="top">
+	            <div class="section-title">Event Registration(user view)</div>
+	        </div>
+	        <div align="right">
+	            <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span> &nbsp;&nbsp;
+	        </div>
+	        <table align="center" class="table" border="7">
+                <tbody>
+	                <tr>
+	                    <th class="first_name" width="3%">First Name</th>
+	                    <th class="last_name" width="3%" >Last Name</th>
+	                    <th class="email" width="5%" >Email</th>
+	                    <th class="contact" width="5%">Contact</th>
+	                    <th class="address" width="5%">Address</th>
+	                    <th class="adultQty" width="3%">Adult Quantity</th>
+	                    <th class="childQty" width="3%">Child Quantity</th>
+	                </tr>
+	               <tr th:each="list: ${lists}">
+	                    <td align="center" th:text="${list.first_name}"></td>
+	                    <td align="center" th:text="${list.last_name}"></td>
+	                    <td align="center" th:text="${list.email}"></td>
+                    	<td align="center" th:text="${list.contact}"></td>
+                    	<td align="center" th:text="${list.address}"></td>
+                    	<td align="center" th:text="${list.adultQty}"></td>
+                    	<td align="center" th:text="${list.childQty}"></td>
+	                </tr>
+            	</tbody>
+            </table>
+            <br/>
+            <div align="center">
+            	<a th:href="@{/register/}">Register</a>
+            </div>
+	    </div>
+	</body>
 </html>

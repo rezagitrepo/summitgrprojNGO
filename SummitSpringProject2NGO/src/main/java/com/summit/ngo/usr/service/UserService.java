@@ -26,10 +26,6 @@ import com.summit.ngo.usr.repository.UserRepository;
 public class UserService implements UserDetailsInterface
 //implements UserDetailsInterface
 {
-	@Autowired
-	private UserRepository userRepo;
-	
-	
 	public List<User> findAll(){
 		List<User> users = new ArrayList<User>();
 		userRepo.findAll().forEach(e->users.add(e));
@@ -45,29 +41,31 @@ public class UserService implements UserDetailsInterface
 		userRepo.deleteById(id); 
 	} 
 	
-	@Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
     public User findByEmail(String email){
         return userRepo.findByEmail(email);
     }
 
-	public User saveUserServe(User user) { 
+	public User saveEditUser(User user) { 
 		User userContain = new User();
         userContain.setId(user.getId());
 		userContain.setFirst_name(user.getFirst_name());
         userContain.setLast_name(user.getLast_name());
         userContain.setEmail(user.getEmail());
-        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setPassword(userDto.getPassword());
-        userContain.setRoles(userContain.getRoles());
-        //user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
-		//return userRepo.save(user);
+		return userRepo.save(userContain);
+	} 
+	
+	public User saveNewUser(User user) { 
+		User userContain = new User();
+        userContain.setId(user.getId());
+		userContain.setFirst_name(user.getFirst_name());
+        userContain.setLast_name(user.getLast_name());
+        userContain.setEmail(user.getEmail());
+        userContain.setPassword(user.getPassword());
+        userContain.setRoles(user.getRoles());
 		return userRepo.save(userContain);
 	} 
 	
 	public void updateById(Long id, User user) { 
-		
 		userRepo.save(user); 
 	}
 

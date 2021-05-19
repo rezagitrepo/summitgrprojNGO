@@ -1,7 +1,5 @@
 package com.summit.ngo.usr.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.summit.ngo.usr.dto.UsrRegistrationDto;
 import com.summit.ngo.usr.model.User;
 import com.summit.ngo.usr.repository.RoleRepository;
 import com.summit.ngo.usr.repository.UserRepository;
 import com.summit.ngo.usr.service.UserService;
+
+import antlr.collections.List;
 
 
 
@@ -91,30 +90,23 @@ public class UserController {
 	public ModelAndView user(Model model) {
 		System.out.println("index executed");
 		List<User> lists = userRepo.userAndRole();
+		List<String> roleNames = roleRepo.findAllRole();
 		String first_name = "";
 		String last_name = "";
-		String user = "";
 		
+		System.out.println(lists);
+		System.out.println(roleNames);
 		for(int i=0; i<lists.size(); i++) {
 			first_name = lists.get(i).getFirst_name();
 			last_name = lists.get(i).getLast_name();
-			
-			System.out.println(lists);
-			// role validation
-			if(lists.equals("ROLE_ADMIN")) {
-				user = "admin";
-			}else {
-				user = "user";
-			}
 		}
 		
 		// first name + last name
 		String name = first_name+" "+last_name;
 		
-		
 		model.addAttribute("name",name);
 		model.addAttribute("lists",lists);
-		model.addAttribute("user",user);
+		model.addAttribute("roleNames",roleNames);
 		return new ModelAndView("/user");
 	}
 	
@@ -127,16 +119,18 @@ public class UserController {
 		return mav;
 	} 
 	
-	@PostMapping("/saveUser")
-	public String saveUser(@Valid User user, Model model,@RequestParam("id") int id) {
+	@PostMapping("/saveEditUser")
+	public String saveEditUser(@Valid User user, Model model,@RequestParam("id") int id) {
 		User userInDb = userService.findById(id);
-		System.out.println("id of user:"+id);
-		System.out.println("userInDb:"+userInDb.getId());
-		System.out.println("user"+user.getId());
-		//user.setId(userInDb.getId());
-		user.setPassword(userInDb.getPassword());
-		userService.saveUserServe(user);
-		model.addAttribute("user",user);
+		String role = roleRepo.findRole(id);
+		userService.saveEditUser(user);
+		model.addAttribute("userInDb",userInDb);
+		return "redirect:/user";
+	}
+	
+	@PostMapping("/saveNewUser")
+	public String saveNewUser(@Valid User user, Model model) {
+		userService.saveNewUser(user);
 		return "redirect:/user";
 	}
 	
@@ -147,20 +141,9 @@ public class UserController {
 		return "redirect:/user";
 	}
 	
-	@GetMapping("/new")
+	@GetMapping("/new_user")
 	public String newUser() {
-		return "/newUser_popup";
-	}
-	
-	@GetMapping("/event")
-	public ModelAndView event(Model model) {
-		System.out.println("event executed");
-		return new ModelAndView("/event");
-	}
-	
-	@GetMapping("/view")
-	public ModelAndView view(Model model) {
-		System.out.println("event executed");
-		return new ModelAndView("/view");
+		System.out.println("newUser executes");
+		return "new_user";
 	}
 }
