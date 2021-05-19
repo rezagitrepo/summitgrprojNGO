@@ -1,5 +1,7 @@
 package com.summit.ngo.evnt.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.summit.ngo.evnt.model.Event;
 import com.summit.ngo.evnt.service.EvntService;
 
-import antlr.collections.List;
+
 
 @RestController
 public class EvntController {

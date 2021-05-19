@@ -26,7 +26,12 @@ import com.summit.ngo.usr.repository.UserRepository;
 public class UserService implements UserDetailsInterface
 //implements UserDetailsInterface
 {
+	
+	@Autowired
+	private UserRepository userRepo;
+	
 	public List<User> findAll(){
+		
 		List<User> users = new ArrayList<User>();
 		userRepo.findAll().forEach(e->users.add(e));
 		return users;
