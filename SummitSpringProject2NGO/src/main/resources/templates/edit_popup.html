@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>NGO edit user info</title>
+</head>
+
+<body>
+	<div align="center">
+		<h1>Edit user Info Page</h1>
+		<form action="#" th:action="@{/saveEditUser}" th:object="${user}" method="post">
+			<table border="2">
+				<tr>
+					<td>user id: <input type="text" style="width: 232px" th:field="*{id}" 
+							readonly="readonly" /><br>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>first name: <input type="text" style="width: 232px" th:field="*{first_name}"
+							placeholder="Enter a first name" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>last Name: <input type="text" style="width: 227px" th:field="*{last_name}"
+							placeholder="Enter a last name" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>email: <input type="text" style="width: 220px" th:field="*{email}"
+							placeholder="Enter an email address" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>password: <input type="text" style="width: 220px" th:field="*{password}"
+							placeholder="Enter a password address" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>role: <input type="text" style="width: 197px" th:field="*{role}"
+							placeholder="Enter ROLE_ADMIN / ROLE_USER" /><br>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit">Edit</button>
+			&emsp;&emsp;&emsp; <a th:href="@{/user}">Back</a> &emsp;&emsp;&emsp;
+			<span id="logout" class="collapse navbar-collapse">
+				<span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
+			</span>
+		</form>
+	</div>
+</body>
+
+</html>

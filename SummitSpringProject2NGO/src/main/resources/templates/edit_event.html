@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title>NGO edit event </title>
+</head>
+
+<body>
+	<div align="center">
+		<h1>Edit event Page</h1>
+		<form action="#" th:action="@{/saveEvent}" th:object="${event}" method="post">
+			<table border="2">
+				<tr>
+					<td>Event id: <input type="text" style="width: 232px" th:field="*{id}" 
+							readonly="readonly" /><br>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>Event name: <input type="text" style="width: 232px" th:field="*{name}"
+							placeholder="Enter an event name" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Category: <input type="text" style="width: 227px" th:field="*{category}"
+							placeholder="Enter an event category" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Location: <input type="text" style="width: 220px" th:field="*{location}"
+							placeholder="New York / NY" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Start Date: <input type="text" style="width: 197px" th:field="*{start_date}"
+							placeholder="2021-05-15"/><br>
+					</td>
+				</tr>
+				<tr>
+					<td>End Date: <input type="text" style="width: 197px" th:field="*{end_date}"
+							placeholder="2021-05-15"><br>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit">Edit</button>
+			&emsp;&emsp;&emsp; <a th:href="@{/event/}">Back</a> &emsp;&emsp;&emsp;
+			<span id="logout" class="collapse navbar-collapse">
+				<span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
+			</span>
+		</form>
+	</div>
+</body>
+
+</html>

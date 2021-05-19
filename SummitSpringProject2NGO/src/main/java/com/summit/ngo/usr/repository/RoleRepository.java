@@ -15,7 +15,7 @@ public interface RoleRepository extends JpaRepository<Role, Integer>{
 	@Query( value = "select r.name from Role r join users_roles ur on r.id=ur.role_id join user u on u.id=ur.user_id and u.id=:userId",nativeQuery = true)
 	public String findRole(@Param("userId") Integer userId);
 
-	
-	
+	@Query( value = "select r.name from Role r join users_roles ur on r.id=ur.role_id join user u on u.id=ur.user_id",nativeQuery = true)
+	public List<String> findAllRole();
 	
 }

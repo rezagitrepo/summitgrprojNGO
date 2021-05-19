@@ -26,11 +26,15 @@ import com.summit.ngo.usr.repository.UserRepository;
 public class UserService implements UserDetailsInterface
 //implements UserDetailsInterface
 {
+	
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	public List<User> findAll(){
+		
 		List<User> users = new ArrayList<User>();
 		userRepo.findAll().forEach(e->users.add(e));
 		return users;
@@ -45,27 +49,32 @@ public class UserService implements UserDetailsInterface
 		userRepo.deleteById(id); 
 	} 
 	
-	@Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
     public User findByEmail(String email){
         return userRepo.findByEmail(email);
     }
 
-	public User save(UsrRegistrationDto userDto) { 
-		User user = new User();
-        user.setFirst_name(userDto.getFirstName());
-        user.setLast_name(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        //user.setPassword(userDto.getPassword());
-        user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
-		//return userRepo.save(user);
-		return userRepo.save(user);
+	public User saveEditUser(User user) { 
+		User userContain = new User();
+        userContain.setId(user.getId());
+		userContain.setFirst_name(user.getFirst_name());
+        userContain.setLast_name(user.getLast_name());
+        userContain.setEmail(user.getEmail());
+        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userRepo.save(userContain);
+	} 
+	
+	public User saveNewUser(User user) { 
+		User userContain = new User();
+        userContain.setId(user.getId());
+		userContain.setFirst_name(user.getFirst_name());
+        userContain.setLast_name(user.getLast_name());
+        userContain.setEmail(user.getEmail());
+        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
+        userContain.setRole(user.getRole());
+		return userRepo.save(userContain);
 	} 
 	
 	public void updateById(Long id, User user) { 
-		
 		userRepo.save(user); 
 	}
 
@@ -78,12 +87,28 @@ public class UserService implements UserDetailsInterface
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+                mapRolesToAuthorities(user.getRole()));
     }
 
-	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+	
+
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String roleName){
+        return Arrays.asList(new SimpleGrantedAuthority(roleName));
+    }
+	
+	
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities11(Collection<Role> roles){
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+	
+	
+	
+
+	@Override
+	public User save(UsrRegistrationDto registration) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

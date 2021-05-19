@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>index page</title>
+	<style type="text/css">
+		.section-title {
+			color: #010110;
+		}
+		
+		.nav-container {
+			background-color: #9e9e9e;
+			font-size: 25px;
+			padding: 0px 10px;
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+		
+		.sidebar {
+			height: 100%;
+			width: 200px;
+			position: fixed;
+			z-index: 1;
+			top: 1;
+			left: 0;
+			background-color: #eee;
+			overflow-x: hidden;
+			padding-top: 20px;
+		}
+		
+		body {
+			font-family: "Lato", sans-serif;
+		}
+		
+		.sidebar a {
+			padding: 8px 8px 6px 16px;
+			text-decoration: none;
+			font-size: 20px;
+			color: #010110;
+			display: block;
+		}
+		
+		.sidebar a:hover {
+			color: #064579;
+		}
+		
+		.main {
+			margin-left: 160px; /* Same as the width of the sidenav */
+			font-size: 26px; /* Increased text to enable scrolling */
+			padding: 0px 10px;
+		}
+		
+		.top {
+			margin-left: 20px;
+			font-size: 30px;
+			padding: 0px 20px;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<nav>
+		<div align="center" class="nav-container">
+			<div align="left" class="navTitle">NGO</div>
+			<div align="right" class="navUser">
+	            <span sec:authentication="principal.username"></span>
+				<span sec:authroize="hasRole('ROLE_ADMIN')">(Admin)</span>
+				<span sec:authorize="hasRole('ROLE_USER')">(User)</span>
+			</div>
+		</div>
+	</nav>
+	<div class="sidebar">
+		<a th:href="@{/user}">User Management</a> 
+		<a th:href="@{/event}" style="background-color: grey">Event Management</a> 
+		<a th:href="@{/view}">UserView</a>
+	</div>
+	<div class="main">
+		<div class="top">
+			<div class="section-title">Event Management</div>
+		</div>
+		<div align="right">
+	        <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span> &nbsp;&nbsp;
+			<a th:href="@{/new_event}">Add a new Event</a>
+		</div>
+		<!-- th:onclick="window.open(this.href,'_blank','width=800,height=800,toolbars=no,scrollbars=yes'); return false;"  -->
+		<table align="center" class="table" border="6">
+			<tbody>
+				<tr>
+					<th class="event" width="10%">Event</th>
+					<th class="category" width="10%">Category</th>
+					<th class="location" width="10%">Location</th>
+					<th class="start_date" width="15%">Start Date</th>
+					<th class="end_date" width="15%">End Date</th>
+					<th width="4%"></th>
+				</tr>
+				<tr th:each="list: ${lists}">
+					<td align="center" th:text="${list.name}"></td>
+					<td align="center" th:text="${list.category}"></td>
+					<td align="center" th:text="${list.location}"></td>
+					<td align="center" th:text="${#calendars.format(list.start_date,'yyyy-MM-dd HH:mm')}"></td>
+					<td align="center" th:text="${#calendars.format(list.end_date,'yyyy-MM-dd HH:mm')}"></td>
+					<td><a th:href="@{/edit_event/{id}(id=${list.id})}">Edit</a></td>
+					<!-- th:onclick="window.open(this.href,'_blank','width=800,height=800,toolbars=no,scrollbars=yes'); return false;" -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="navbar" class="collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+		</ul>
+	</div>
+</body>
+</html>
