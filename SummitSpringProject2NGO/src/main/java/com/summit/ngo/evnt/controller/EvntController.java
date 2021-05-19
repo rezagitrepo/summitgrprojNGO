@@ -1,22 +1,24 @@
-package com.summit.ngo.evnt.controller;
+package com.summitworks.ngo.controller;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.summit.ngo.evnt.model.Event;
 import com.summit.ngo.evnt.service.EvntService;
 
-import antlr.collections.List;
-
-@RestController
+@Controller
 public class EvntController {
 	
 	@Autowired
@@ -31,9 +33,10 @@ public class EvntController {
 	}
 	
 	@GetMapping("/new_event")
-	public ModelAndView newEvent(Model model) {
+	public String newEvent(Model model) {
 		System.out.println("newEvent executed");
-		return new ModelAndView("/new_event");
+		model.addAttribute("event",new Event());
+		return "/new_event";
 	}
 	
 	@GetMapping("/edit_event/{id}")
@@ -45,21 +48,19 @@ public class EvntController {
 		return mav;
 	} 
 	
-	@PostMapping("/save_event")
-	public String saveEvent(@Valid Event event, Model model) {
+	@PostMapping("/saveNewEvent")
+	public String saveNewEvent(@Validated @ModelAttribute Event event, Model model) {
+		System.out.println(event.getStart_date());
 		evntService.save(event);
 		model.addAttribute("event",event);
 		return "redirect:/event";
 	}
 	
-	@PostMapping("/saveEvent")
-	public String saveEvent(@Valid Event event, Model model,@RequestParam("id") int id) {
+	@PostMapping("/saveEditEvent")
+	public String saveEditEvent(@Valid Event event, Model model,@RequestParam("id") int id) {
 		Event evntInDb = evntService.findById(id);
-		System.out.println("id of event:"+id);
-		System.out.println("evntInDb:"+evntInDb.getId());
-		System.out.println("event"+event.getId());
-		evntService.saveEvent(event);
-		model.addAttribute("event",event);
+		evntService.saveEditEvent(event);
+		model.addAttribute("evntInDb",evntInDb);
 		return "redirect:/event";
 	}
 }

@@ -25,8 +25,8 @@ public class Event {
 	String description;
 	String category;
 	String location;
-	Timestamp start_date;
-	Timestamp end_date;
+	String start_date;
+	String end_date;
 	@OneToMany(mappedBy = "event",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Registration> registration;
 	
@@ -36,7 +36,7 @@ public class Event {
 	}
 
 	public Event(Integer id, String name, String description, String category, String location,
-			Timestamp start_date, Timestamp end_date, Set<Registration> registration) {
+			String start_date, String end_date, Set<Registration> registration) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -88,19 +88,19 @@ public class Event {
 		this.location = location;
 	}
 
-	public Timestamp getStart_date() {
+	public String getStart_date() {
 		return start_date;
 	}
 
-	public void setStart_date(Timestamp start_date) {
+	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
 
-	public Timestamp getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(Timestamp end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 
@@ -118,9 +118,4 @@ public class Event {
 				+ ", location=" + location + ", start_date=" + start_date + ", end_date=" + end_date
 				+ ", registrationModel=" + registration + "]";
 	}
-
-	
-	
-	
-	
 }

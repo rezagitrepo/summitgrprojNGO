@@ -9,7 +9,7 @@
 <body>
 	<div align="center">
 		<h1>Edit event Page</h1>
-		<form action="#" th:action="@{/saveEvent}" th:object="${event}" method="post">
+		<form action="#" th:action="@{/saveEditEvent}" th:object="${event}" method="post">
 			<table border="2">
 				<tr>
 					<td>Event id: <input type="text" style="width: 232px" th:field="*{id}" 

@@ -98,8 +98,8 @@
 					<td align="center" th:text="${list.name}"></td>
 					<td align="center" th:text="${list.category}"></td>
 					<td align="center" th:text="${list.location}"></td>
-					<td align="center" th:text="${#calendars.format(list.start_date,'yyyy-MM-dd HH:mm')}"></td>
-					<td align="center" th:text="${#calendars.format(list.end_date,'yyyy-MM-dd HH:mm')}"></td>
+					<td align="center" th:text="${list.start_date}"></td>
+					<td align="center" th:text="${list.end_date}"></td>
 					<td><a th:href="@{/edit_event/{id}(id=${list.id})}">Edit</a></td>
 					<!-- th:onclick="window.open(this.href,'_blank','width=800,height=800,toolbars=no,scrollbars=yes'); return false;" -->
 				</tr>
