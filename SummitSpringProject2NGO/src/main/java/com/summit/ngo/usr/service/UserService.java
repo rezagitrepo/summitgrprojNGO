@@ -30,6 +30,9 @@ public class UserService implements UserDetailsInterface
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	public List<User> findAll(){
 		
 		List<User> users = new ArrayList<User>();
@@ -56,6 +59,7 @@ public class UserService implements UserDetailsInterface
 		userContain.setFirst_name(user.getFirst_name());
         userContain.setLast_name(user.getLast_name());
         userContain.setEmail(user.getEmail());
+        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepo.save(userContain);
 	} 
 	
@@ -65,8 +69,8 @@ public class UserService implements UserDetailsInterface
 		userContain.setFirst_name(user.getFirst_name());
         userContain.setLast_name(user.getLast_name());
         userContain.setEmail(user.getEmail());
-        userContain.setPassword(user.getPassword());
-        userContain.setRoles(user.getRoles());
+        userContain.setPassword(passwordEncoder.encode(user.getPassword()));
+        userContain.setRole(user.getRole());
 		return userRepo.save(userContain);
 	} 
 	
@@ -83,14 +87,24 @@ public class UserService implements UserDetailsInterface
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+                mapRolesToAuthorities(user.getRole()));
     }
 
-	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+	
+
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String roleName){
+        return Arrays.asList(new SimpleGrantedAuthority(roleName));
+    }
+	
+	
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities11(Collection<Role> roles){
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+	
+	
+	
 
 	@Override
 	public User save(UsrRegistrationDto registration) {

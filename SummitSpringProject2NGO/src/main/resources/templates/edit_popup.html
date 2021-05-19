@@ -33,14 +33,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td>role: <input type="text" style="width: 197px"
-							placeholder="Enter a admin / user" /><br>
+					<td>password: <input type="text" style="width: 220px" th:field="*{password}"
+							placeholder="Enter a password address" /><br>
+					</td>
+				</tr>
+				<tr>
+					<td>role: <input type="text" style="width: 197px" th:field="*{role}"
+							placeholder="Enter ROLE_ADMIN / ROLE_USER" /><br>
 					</td>
 				</tr>
 			</table>
 			<br>
 			<button type="submit">Edit</button>
-			&emsp;&emsp;&emsp; <a th:href="@{/user/}">Back</a> &emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp; <a th:href="@{/user}">Back</a> &emsp;&emsp;&emsp;
 			<span id="logout" class="collapse navbar-collapse">
 				<span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
 			</span>

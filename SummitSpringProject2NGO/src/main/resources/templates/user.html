@@ -94,8 +94,13 @@
 	                    <td align="center" th:text="${list.first_name}"></td>
 	                    <td align="center" th:text="${list.last_name}"></td>
 	                    <td align="center" th:text="${list.email}"></td>
+                    	<td align="center" th:text="${list.role}"></td>
+                    	
+                    	<!--
+						<td align="center" th:if="${list.role}=='ROLE_ADMIN'">ADMIN</td>
                     	<td align="center" th:if="${roleNames[i.index]}=='ROLE_USER'">USER</td>
                     	<td align="center" th:if="${roleNames[i.index]}=='ROLE_ADMIN'">ADMIN</td>
+                    	-->
 	                    <td><a th:href="@{/edit_popup/{id}(id=${list.id})}" >Edit</a></td>
 	                    <!-- th:onclick="window.open(this.href,'_blank','width=800,height=800,toolbars=no,scrollbars=yes'); return false;" -->
 	                    <td><a th:href="@{/delete_popup/{id}(id=${list.id})}">Delete</a></td>

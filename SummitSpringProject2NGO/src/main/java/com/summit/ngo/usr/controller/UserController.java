@@ -32,15 +32,12 @@ public class UserController {
 	@Autowired
 	UserRepository userRepo;
 	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping("/")
 	public String index() {
 		System.out.println("index executed");
-		//return "/login";
 		return "index";
-		//return "redirect:/checkUser";
+		
 	}
 	
 	@GetMapping("/login")
@@ -54,31 +51,7 @@ public class UserController {
 		System.out.println("LogIn page Executed");
 		return "login";
 	}
-	
-//	@PostMapping("/checkUser")
-//	public String checkUser(Model model, @RequestParam("username") String email, @RequestParam("password") String pass) {
-//
-//		model.addAttribute("msg", "Hi." + email + "!");
-//		System.out.println("checkUser is Executed");
-//
-//		User user = userService.findByEmail(email);
-//		String roleName = roleRepo.findRole(user.getId());
-//
-//
-//		Boolean password = passwordEncoder.matches(pass, user.getPassword());
-//
-//
-//		if (roleName.equals("ROLE_ADMIN") && password) {
-//			System.out.println("I am Admin User");
-//			return "redirect:/user";
-//		} else {
-//			if (roleName.equals("ROLE_USER") && password) {
-//				System.out.println("I am General User");
-//				return "redirect:/view";
-//			} else
-//				return "/login";
-//		}
-//	}
+
 	
 	@GetMapping("/generalUser")
 	public String generalUser(Model model) {
@@ -89,17 +62,18 @@ public class UserController {
 	
 	@GetMapping("/user")
 	public ModelAndView user(Model model) {
-		System.out.println("index executed");
-		List<User> lists = userRepo.userAndRole();
-		List<String> roleNames = roleRepo.findAllRole();
+		//System.out.println("index executed");
+		List<User> lists = userRepo.findAll();
+		//List<String> roleNames = roleRepo.findAllRole();
 		String first_name = "";
 		String last_name = "";
+		String role="";
 		
 		System.out.println(lists);
-		System.out.println(roleNames);
 		for(int i=0; i<lists.size(); i++) {
 			first_name = lists.get(i).getFirst_name();
 			last_name = lists.get(i).getLast_name();
+			role = lists.get(i).getRole();
 		}
 		
 		// first name + last name
@@ -107,7 +81,7 @@ public class UserController {
 		
 		model.addAttribute("name",name);
 		model.addAttribute("lists",lists);
-		model.addAttribute("roleNames",roleNames);
+		//model.addAttribute("roleNames",role);
 		return new ModelAndView("/user");
 	}
 	
@@ -123,7 +97,6 @@ public class UserController {
 	@PostMapping("/saveEditUser")
 	public String saveEditUser(@Valid User user, Model model,@RequestParam("id") int id) {
 		User userInDb = userService.findById(id);
-		String role = roleRepo.findRole(id);
 		userService.saveEditUser(user);
 		model.addAttribute("userInDb",userInDb);
 		return "redirect:/user";
@@ -131,6 +104,8 @@ public class UserController {
 	
 	@PostMapping("/saveNewUser")
 	public String saveNewUser(@Valid User user, Model model) {
+		//String temPassword = user.getPassword();
+		//user.setPassword(passwordEncoder.encode(temPassword));
 		userService.saveNewUser(user);
 		return "redirect:/user";
 	}
@@ -142,9 +117,29 @@ public class UserController {
 		return "redirect:/user";
 	}
 	
+	
+//	@GetMapping("/newUser_popup")
+//	public ModelAndView newUser() {
+//		ModelAndView mav = new ModelAndView("newUser_popup");
+//		User user = new User();
+//		mav.addObject("user",user);
+//		return mav;
+//	}
+	
+	
+//	@GetMapping("/new_user")
+//	public String newUser() {
+//		System.out.println("newUser executes");
+//		return "new_user";
+//	}
+	
 	@GetMapping("/new_user")
-	public String newUser() {
+	public ModelAndView newUser() {
 		System.out.println("newUser executes");
-		return "new_user";
+		ModelAndView mav = new ModelAndView("new_user");
+		User user = new User();
+		mav.addObject("user",user);
+		return mav;
 	}
+	
 }
